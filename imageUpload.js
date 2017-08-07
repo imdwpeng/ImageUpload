@@ -277,7 +277,7 @@ function get_upload_token(job) {
     request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     request.onload = function (e) {
         if (e.target.status == 200) {
-            console.log('开始上传文件... <span id="uped"></span>');
+            console.log('开始上传文件...');
             var res = JSON.parse(e.target.response);
 
             e.target.job.save_token = res.save_token;
