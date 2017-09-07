@@ -13,6 +13,10 @@ var _mu_bucket = 'imdwpeng'; // TODO 空间名
 var _mu_form_api_secret = 'RDiq2CxiQA8+IXvSh/hiI9q2uyc='; // TODO 秘钥
 var _mu_path = '/dwp/'; //目标路径
 
+$('#J_path').on('change',function () {
+    _mu_path = $.trim($('#J_path').val()) != '' ? '/' + $.trim($('#J_path').val()) + '/' : _mu_path;
+});
+
 
 function uploadImage(file, callback) {
     mu_upload(file, callback);
@@ -34,7 +38,7 @@ function mu_upload(file, callback) {
         _job.parts = parts;
         _job.file_size = file.size;
         _job.file_type = file.name.substring(file.name.lastIndexOf('.'));
-        _job.tofilename = file.name.substring(0,file.name.lastIndexOf('.'));
+        _job.tofilename = file.name.substring(0, file.name.lastIndexOf('.'));
         get_upload_token(_job);
     });
 }
