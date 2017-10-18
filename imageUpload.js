@@ -3,7 +3,7 @@
  */
 
 $('#files').on('change', function () {
-    uploadImage(this.files[0])
+    uploadImage(this.files)
 });
 
 var _mu_working = false;
@@ -13,13 +13,15 @@ var _mu_bucket = 'imdwpeng'; // TODO 空间名
 var _mu_form_api_secret = 'RDiq2CxiQA8+IXvSh/hiI9q2uyc='; // TODO 秘钥
 var _mu_path = '/dwp/'; //目标路径
 
-$('#J_path').on('change',function () {
+$('#J_path').on('change', function () {
     _mu_path = $.trim($('#J_path').val()) != '' ? '/' + $.trim($('#J_path').val()) + '/' : _mu_path;
 });
 
 
-function uploadImage(file, callback) {
-    mu_upload(file, callback);
+function uploadImage(files, callback) {
+    for (var i in files) {
+        mu_upload(files[i], callback);
+    }
 }
 
 function mu_upload(file, callback) {
@@ -241,8 +243,17 @@ mu_upload_job.prototype.on_part_uploaded = function (r) {
     }
 };
 mu_upload_job.prototype.on_done = function (r) {
-    var url = 'http://' + _mu_bucket + '.b0.upaiyun.com' + r.path;
-    document.getElementById('image').src = url;
+    var imgBox = document.createElement("div"),
+        img = document.createElement("img"),
+        name = document.createElement("div");
+
+    img.src = 'http://' + _mu_bucket + '.b0.upaiyun.com' + r.path;
+    name.innerHTML = r.path;
+
+    imgBox.append(img,name);
+    imgBox.setAttribute('class','img-box');
+
+    document.getElementById('image').appendChild(imgBox);
 };
 
 function get_upload_token(job) {
@@ -257,7 +268,8 @@ function get_upload_token(job) {
     }
     random = num + n;
 
-    var file_name = _mu_path + job.tofilename + '-' + random + job.file_type;
+    // var file_name = _mu_path + job.tofilename + '-' + random + job.file_type;
+    var file_name = _mu_path + job.tofilename + job.file_type;
 
     var options = {
         'path': file_name,

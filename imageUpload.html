@@ -6,15 +6,24 @@
 
     <link rel="stylesheet" href="http://ruhnnstatic.oss-cn-hangzhou.aliyuncs.com/plugin/plugin-pc-common/common-pc.css">
 
+    <style>
+        .img-box {
+            display: inline-block;
+            text-align: center;
+        }
 
+        img {
+            padding-right: 10px;
+            width: 100px;
+        }
+    </style>
 </head>
 <body>
 <div style="width: 400px;margin: 100px auto;">
     项目名称：
     <input type="text" id="J_path">
-    <input style="margin-top: 10px;" type="file" id="files" name="files"/>
-    <div>
-        <img id="image" src="" alt="">
+    <input style="margin-top: 10px;" type="file" id="files" name="files" multiple/>
+    <div id="image">
     </div>
 </div>
 </body>
